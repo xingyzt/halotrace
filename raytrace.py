@@ -31,44 +31,6 @@ def rot_to_z(v):
     
     return rot.as_matrix() # rotation matrix
 
-def voronoi_cell_on_z(vor, i):
-    """
-    Check if the i-th Voronoi center has a cell that intersects the z-axis,
-    by moving its cell's barycenter to the xy-plane and checking if the cell contains the origin.
-    Returns the crossing length.
-
-    vor: scipy.spatial.Voronoi
-    i: int
-
-    returns: float
-    """
-
-    cell = vor.regions[vor.point_region[i]]
-    if not cell or -1 in cell:  # ignores voronoi ridges (infinite cells). TODO: include them
-        return -1
-        
-    verts = vor.vertices[cell]  # vertices of cells
-    z_mean = np.mean(verts[:,2], axis=0)
-    
-    tetras = Delaunay(verts) # triangulation with tetrahedrons
-    if tetras.find_simplex((0,0,z_mean)) == -1:
-        return -1  # no crossing
-    else:
-        faces = tetras.convex_hull
-        interator = (
-            face for face in faces
-            if Delaunay(verts[face][:, :2]).find_simplex((0,0)) != -1
-        )
-        faces_on_z = ( next(interator), next(interator) ) # only two faces that cross
-        
-        zs = []
-        for face in faces_on_z:
-            tri_verts = verts[face] # vertices of triangle
-            coeffs = np.linalg.inv(tri_verts.T) @ np.array([0, 0, 1], dtype=np.float64)
-            zs.append(1/np.sum(coeffs))
-        
-        return max(zs) - min(zs)
-
 def sphere_intersect(v, r, p1, p2, log=True):
     """
     Given a list of spherical cell coordinates `v`, circumradii `r`,
@@ -137,8 +99,8 @@ def voronoi_intersect(v, r, p1, p2, log=True):
     log: Boolean
 
     returns: tuple of (indices, lengths)
-    indices: list of ndarray of int, shape (n_intersecting_cells,)
-    lengths: list of ndarray of float, shape (n_intersecting_cells,); 
+    indices: list of ndarray of int, shape (n_crossings + 1,)
+    lengths: list of ndarray of float, shape (n_crossings,); 
     """
 
     # Ingest
@@ -170,44 +132,65 @@ def voronoi_intersect(v, r, p1, p2, log=True):
     t2 = time()
 
     vor = Voronoi(close)
+    n_ridges = vor.ridge_points.shape[0]
 
     t3 = time()
 
     # initial index in close
     j0 = np.argmin(norm2(close[:, :2]))
+    
+    pair_indices = np.arange(n_ridges*2, dtype=np.int64)
+    close_pair_indices = vor.ridge_points.T.flatten()
 
-    # set of indices and lengths encountered walking +z, -z
     bi_indices = ([], [])
-    bi_lengths = ([], [])
+    bi_zs = ([], [])
     bi_signs = (-1, 1)
     
     for (i, sign) in enumerate(bi_signs):
+        
         j = j0
-        length = 0
+        z_crossing = 0
+        
         while j != -1:
+            
             if j != j0:
                 bi_indices[i].append(j)
-                bi_lengths[i].append(length)
-            forward_select = sign*close[:,2] > sign*close[j,2] # cells above/below
-            forward_indices_in_close = np.arange(n_close)[forward_select]
-            dists = norm2(close[forward_select] - close[j])
-            trial_forward_indices = np.argsort(dists) # TODO: use lazysort
-            j, length = next(( 
-                (k, voronoi_cell_on_z(vor, k)) for k in forward_indices_in_close[trial_forward_indices]
-                if voronoi_cell_on_z(vor, k) > 0
-            ), (-1, 0))
+                bi_zs[i].append(z_crossing)
+                
+            pair_self_indices = pair_indices[close_pair_indices == j]
+            pair_neighbor_indices = pair_self_indices - n_ridges
+            
+            close_neighbor_indices = close_pair_indices[pair_neighbor_indices]
+            forward_select = sign*close[close_neighbor_indices,2] > sign*close[j,2] # cells above/below
+            close_forward_indices = close_neighbor_indices[forward_select]
+
+            ridge_forward_indices = (pair_self_indices % n_ridges)[forward_select]
+            
+            j = -1
+            for (forward_index, ridge_forward_index) in enumerate(ridge_forward_indices):
+        
+                ridge_verts = vor.vertices[vor.ridge_vertices[ridge_forward_index]]
+                ridge_2d = Delaunay(ridge_verts[:, :2]) # tris
+                tri = ridge_2d.find_simplex((0,0))
+                if tri == -1: continue
+        
+                tri_verts = ridge_verts[ridge_2d.simplices[tri]]
+                coeffs = np.linalg.inv(tri_verts.T) @ np.array([0, 0, 1], dtype=np.float64)
+                z_crossing = 1/np.sum(coeffs)
+                j = close_forward_indices[forward_index]
+
+                break
     
-    close_indices_on_z = np.array([
+    close_z_indices = np.array([
         *reversed(bi_indices[0]), 
         j0,
         *bi_indices[1]
-    ], dtype=np.int64)
+    ], dtype=np.int64)[2: -2]
     
-    lengths = np.array([
-        *reversed(bi_lengths[0]), 
-        voronoi_cell_on_z(vor, j0), 
-        *bi_lengths[1]
-    ], dtype=np.float64)
+    lengths = np.diff(np.array([
+        *reversed(bi_zs[0]), 
+        *bi_zs[1]
+    ], dtype=np.float64))[1: -1] # truncate because edges are weird
 
     t4 = time()
     if log:
@@ -217,5 +200,5 @@ def voronoi_intersect(v, r, p1, p2, log=True):
         print('Voronoi:', t3 - t2, 's')
         print('Walk:', t4 - t3, 's')
 
-    center_indices_on_z = center_close_indices[close_indices_on_z]
-    return (center_indices_on_z, lengths)
+    center_z_indices = center_close_indices[close_z_indices]
+    return (center_z_indices, lengths)
