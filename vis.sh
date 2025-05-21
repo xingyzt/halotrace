@@ -1,0 +1,1 @@
+ffmpeg -f image2 -framerate 15 -stream_loop 4 -i vis/%02d.png -vcodec libx264 -crf 13 -strict -2 -preset slow -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -f mp4 vis.mp4
