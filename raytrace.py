@@ -5,6 +5,10 @@ from time import time
 
 def norm2(v): # norm squared
     return np.sum(v**2, axis=-1)
+
+def normalize(v):
+    assert np.any(v != 0)
+    return v/np.sqrt(norm2(v))
     
 def rot_to_z(v):
     """
@@ -16,32 +20,29 @@ def rot_to_z(v):
     # Ingest
     
     v = np.array(v, dtype=np.float64)
-    zeros = np.zeros(3, dtype=np.float64)
     assert v.shape == (3,)
-    assert np.any(v != zeros)
+    assert np.any(v != 0)
 
     # Rotate
 
     z = np.array([0, 0, 1]) # unit vector in z
-    a = np.cross(v, z) # rotation axis
-    if np.any(a != zeros):
-        a /= np.sqrt(norm2(a))  # normalized rotation axis
-    theta = np.arccos(np.dot(v, z) / np.sqrt(norm2(v))) # rotation angle
+    a = normalize(np.cross(v, z)) # rotation axis
+    theta = np.arccos(normalize(np.dot(v, z))) # rotation angle
     rot = Rotation.from_rotvec(theta * a) # rotation object
     
     return rot.as_matrix() # rotation matrix
 
-def sphere_intersect(v, r, p1, p2, log=True):
+def sphere_intersect(v, r, p, n, log=True):
     """
     Given a list of spherical cell coordinates `v`, circumradii `r`,
-    and a ray which intersects the points `p1` and `p2`,
+    and a ray at `p` in the direction `n`,
     returns the indices of all cells which intersects the ray,
     and their intersection lengths.
 
     v: list of ndarray of float, shape (n_centers, 3)
     r: list of ndarray of float, shape (n_centers,)
-    p1: ndarray of float, shape (3,)
-    p2: ndarray of float, shape (3,)
+    p: ndarray of float, shape (3,)
+    n: ndarray of float, shape (3,)
     log: Boolean
 
     returns: tuple of (indices, lengths)
@@ -54,18 +55,18 @@ def sphere_intersect(v, r, p1, p2, log=True):
     v = np.array(v, dtype=np.float64)
     r = np.array(r, dtype=np.float64)
     n_centers = v.shape[0]
-    p1 = np.array(p1, dtype=np.float64)
-    p2 = np.array(p2, dtype=np.float64)
+    p = np.array(p, dtype=np.float64)
+    n = np.array(n, dtype=np.float64)
     z = np.array([0, 0, 1], dtype=np.float64) # unit vector in z
     assert v.shape == (n_centers, 3) 
-    assert p1.shape == p2.shape == (3,)
-    assert np.any(p1 != p2)
+    assert p.shape == n.shape == (3,)
+    assert np.any(n != 0)
 
     # Rotate then translate so that (p1, p2) gets sent to the z-axis
     t0 = time()
 
-    rot = rot_to_z(p2 - p1) # rotation matrix
-    trans = (rot @ p1) * (1 - z) # translation
+    rot = rot_to_z(n) # rotation matrix
+    trans = (rot @ p) # translation
     centers = (rot @ v.T).T - trans # transformed Voronoi cell coordinates
     
     # Start with the cell closest to the z-axis, the find its neighbors by walking +z/-z
@@ -85,49 +86,53 @@ def sphere_intersect(v, r, p1, p2, log=True):
     return (center_close_indices, lengths)
 
 
-def voronoi_intersect(v, r, p1, p2, log=True):
+def voronoi_intersect(v, r, p, n, log=True):
     """
     Given a list of spherical cell coordinates `v`, circumradii `r`,
-    and a ray which intersects the points `p1` and `p2`,
+    and a ray at `p` in the direction `n`,
     returns the indices of all cells which intersects the ray,
     and their intersection lengths.
 
     v: list of ndarray of float, shape (n_centers, 3)
     r: list of ndarray of float, shape (n_centers,)
-    p1: ndarray of float, shape (3,)
-    p2: ndarray of float, shape (3,)
+    p: ndarray of float, shape (3,)
+    n: ndarray of float, shape (3,)
     log: Boolean
 
     returns: tuple of (indices, lengths)
-    indices: list of ndarray of int, shape (n_crossings + 1,)
-    lengths: list of ndarray of float, shape (n_crossings,); 
+    indices: list of ndarray of int, shape (n_intersecting_cells,)
+    lengths: list of ndarray of float, shape (n_intersecting_cells,); 
     """
 
     # Ingest
     
     v = np.array(v, dtype=np.float64)
+    r = np.array(r, dtype=np.float64)
     n_centers = v.shape[0]
-    p1 = np.array(p1, dtype=np.float64)
-    p2 = np.array(p2, dtype=np.float64)
+    p = np.array(p, dtype=np.float64)
+    n = np.array(n, dtype=np.float64)
     z = np.array([0, 0, 1], dtype=np.float64) # unit vector in z
     assert v.shape == (n_centers, 3) 
-    assert p1.shape == p2.shape == (3,)
-    assert np.any(p1 != p2)
+    assert p.shape == n.shape == (3,)
+    assert np.any(n != 0)
 
     # Rotate then translate so that (p1, p2) gets sent to the z-axis
     t0 = time()
 
-    rot = rot_to_z(p2 - p1) # rotation matrix
-    trans = (rot @ p1) * (1 - z) # translation
+    rot = rot_to_z(n) # rotation matrix
+    trans = (rot @ p) # translation
     centers = (rot @ v.T).T - trans # transformed Voronoi cell coordinates
     
     # Start with the cell closest to the z-axis, the find its neighbors by walking +z/-z
     t1 = time()
 
-    close_select = norm2(centers[:, :2]) < (r**2)
+    close_select = (centers[:, 2] > 0) & (norm2(centers[:, :2]) < r*r)
     center_close_indices = np.arange(n_centers)[close_select]
     close = centers[close_select]
     n_close = close.shape[0]
+
+    if n_close == 0:
+        return ([], [])
 
     t2 = time()
 
