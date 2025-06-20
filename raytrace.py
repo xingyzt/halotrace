@@ -3,6 +3,10 @@ from scipy.spatial import Voronoi, Delaunay, ConvexHull
 from scipy.spatial.transform import Rotation
 from time import time
 
+def unwrap(coords):
+    boxsize = 680000 # ckpc; TNG-Cluster periodic boundary size
+    return (coords + (boxsize/2)) % boxsize - (boxsize/2)
+
 def norm2(v): # norm squared
     return np.sum(v**2, axis=-1)
 
@@ -99,7 +103,7 @@ def voronoi_intersect(v, r, p, n, log=True):
     n: ndarray of float, shape (3,)
     log: Boolean
 
-    returns: tuple of (indices, lengths)
+    returns: tuple of ((front_indices, back_indices), (front_lengths, back_lengths))
     indices: list of ndarray of int, shape (n_intersecting_cells,)
     lengths: list of ndarray of float, shape (n_intersecting_cells,); 
     """
@@ -150,6 +154,10 @@ def voronoi_intersect(v, r, p, n, log=True):
     bi_indices = ([], [])
     bi_zs = ([], [])
     bi_signs = (-1, 1)
+
+    bi_center_indices = ([], [])
+    bi_lengths = ([], [])
+
     
     for (i, sign) in enumerate(bi_signs):
         
@@ -157,7 +165,7 @@ def voronoi_intersect(v, r, p, n, log=True):
         z_crossing = 0
         
         while j != -1:
-            
+
             if j != j0:
                 bi_indices[i].append(j)
                 bi_zs[i].append(z_crossing)
@@ -185,17 +193,9 @@ def voronoi_intersect(v, r, p, n, log=True):
                 j = close_forward_indices[forward_index]
 
                 break
-    
-    close_z_indices = np.array([
-        *reversed(bi_indices[0]), 
-        j0,
-        *bi_indices[1]
-    ], dtype=np.int64)[2: -2]
-    
-    lengths = np.diff(np.array([
-        *reversed(bi_zs[0]), 
-        *bi_zs[1]
-    ], dtype=np.float64))[1: -1] # truncate because edges are weird
+
+        bi_center_indices[i][:] = center_close_indices[bi_indices[i]][:-2]
+        bi_lengths[i][:] = sign * np.diff(bi_zs[i])[:-1]
 
     t4 = time()
     if log:
@@ -205,5 +205,4 @@ def voronoi_intersect(v, r, p, n, log=True):
         print('Voronoi:', t3 - t2, 's')
         print('Walk:', t4 - t3, 's')
 
-    center_z_indices = center_close_indices[close_z_indices]
-    return (center_z_indices, lengths)
+    return (bi_center_indices, bi_lengths)
