@@ -31,7 +31,7 @@ def rot_to_z(v):
 
     z = np.array([0, 0, 1]) # unit vector in z
     a = normalize(np.cross(v, z)) # rotation axis
-    theta = np.arccos(normalize(np.dot(v, z))) # rotation angle
+    theta = np.arccos(np.dot(normalize(v), z)) # rotation angle
     rot = Rotation.from_rotvec(theta * a) # rotation object
     
     return rot.as_matrix() # rotation matrix
@@ -152,10 +152,10 @@ def sphere_intersect(v, r, p, n, log=True):
     return (
         (
             center_close_indices[ close_front_select],
-            center_close_indices[~close_front_select],
+            center_close_indices[~close_front_select][::-1],
         ), (
             lengths[ close_front_select],
-            lengths[~close_front_select],
+            lengths[~close_front_select][::-1],
         )
     )
 
