@@ -37,61 +37,35 @@ def rot_to_z(v):
     return rot.as_matrix() # rotation matrix
 
 
-def impact(subhalo_ids, subhalo_centers, ray_pos, ray_dir, n_impacts):
+def impact(subhalo_centers, ray_pos, ray_dir):
     """
-    Given a list of subhalo ids `subhalo_ids`, coordinates `subhalo_pos`,
+    Given a list of subhalo coordinates `subhalo_centers`,
     and a ray based at `ray_pos` in the direction `ray_dir`,
-    returns a list of the `n_impacts`-closest (by impact parameter) 
-    subhalo ids and impact parameters,
-    sorted by order of encounter (earliest to latest).
-    Indices are categorized by whether they lie in the forward or backwards rays.
+    returns a list of impact parameters.
 
     v: list of ndarray of float, shape (n_centers, 3)
     p: ndarray of float, shape (3,)
     n: ndarray of float, shape (3,)
-    log: Boolean
 
-    returns: tuple of ((front_ids, back_ids), (front_impacts, back_impacts))
-    where
-        *_ids: list of ndarray of int, shape (n_impacts,)
-        *_impacts: list of ndarray of float, shape (n_impacts,3); 
+    returns: ndarray of impacts, shape (n_centers,)
     """
 
     # Ingest
 
-    subhalo_ids = np.array(subhalo_ids)
     subhalo_centers = np.array(subhalo_centers, dtype=np.float64)
     n_centers = subhalo_centers.shape[0]
     ray_pos = np.array(ray_pos, dtype=np.float64)
     ray_dir = np.array(ray_dir, dtype=np.float64)
-    z = np.array([0, 0, 1], dtype=np.float64) # unit vector in z
-    assert subhalo_ids.shape == (n_centers,)
-    assert subhalo_centers.shape == (n_centers, 3) 
     assert ray_pos.shape == ray_dir.shape == (3,)
     assert np.any(ray_dir != 0)
 
     zs = np.dot(subhalo_centers - ray_pos, ray_dir)  # projection onto ray axis
 
-    # Calculate
-
     impacts = np.sqrt(norm2(
         (subhalo_centers - ray_pos) - zs[:, np.newaxis]*ray_dir
     ))
 
-    front_select = zs > 0
-    front_ids = subhalo_ids[front_select]
-    front_impacts = impacts[front_select]
-    back_ids = subhalo_ids[~front_select]
-    back_impacts = impacts[~front_select]
-
-    # Filter by impact parameter, then sort by time of impact
-    front_sort = np.sort(np.argsort(front_impacts)[:n_impacts])
-    back_sort = np.sort(np.argsort(back_impacts)[:n_impacts])
-
-    return (
-        (front_ids[front_sort], back_ids[back_sort]),
-        (front_impacts[front_sort], back_impacts[back_sort])
-    )
+    return impacts
 
 def sphere_intersect(v, r, p, n, log=True):
     """

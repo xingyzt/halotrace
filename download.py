@@ -7,16 +7,30 @@ import h5py
 import pandas as pd
 import os
 import sys
+import json
 
 from dotenv import load_dotenv
 load_dotenv()
 
-sub_index = int(sys.argv[1])
+halo_index = int(sys.argv[1])
+repeat = False
 
-baseUrl = 'http://www.tng-project.org/api/TNG-Cluster'
-headers = {"api-key":os.getenv('API_KEY')}
-base_dir = 'tng_cache/'
+base_url = 'http://www.tng-project.org/api/TNG-Cluster/snapshots/99/halos/'
+headers = {"api-key": os.getenv('API_KEY')}
+base_dir = './tng_cache/snap_099/'
 
+with h5py.File('outputs/tng_cluster_catalog.hdf5', 'r') as f:
+    halo_id = f['table/haloID'][halo_index]
+
+parent_file = base_dir + f'cutout_{halo_id}.hdf5'
+
+if (repeat == False) and os.path.exists(parent_file):
+    # with h5py.File("outputs/dm_proto.hdf5", "r") as f:
+    with h5py.File(parent_file, 'r') as f:
+        if 'PartType0/Coordinates' in f:
+            print('halo already exists')
+            sys.exit(0)
+    
 def get(path, params=None, save_dir=''):
     # make HTTP GET request to path
     r = requests.get(path, params=params, headers=headers)
@@ -35,77 +49,87 @@ def get(path, params=None, save_dir=''):
 
     return r
 
-sim = get(baseUrl)
 
-# get z = 0 snapshot
-snap_index = 99
-snap_dir = f'snap_{snap_index:03d}/'
+def backoff(
+    filename,
+    mode="r+",
+    base_delay=0.5,   # initial wait (seconds)
+    max_delay=8.0,    # max wait between attempts
+    max_retries=10,   # max number of retries
+):
+    delay = base_delay
 
-snaps = get(sim['snapshots'])
-snap = get(snaps[snap_index]['url'], save_dir=snap_dir)
-
-subs = get( snap['subhalos'], {'limit':50, 'order_by':'-mass_stars'})
-
-# get (sub_index)th most massive subhalo and its siblings
-sub = get( subs['results'][sub_index]['url'] )
+    for attempt in range(1, max_retries + 1):
+        try:
+            f = h5py.File(filename, mode)
+            print(f"[OK] Opened {filename} on attempt {attempt}")
+            return f
+        except OSError as e:
+            if "Unable to open file" in str(e):
+                # Apply exponential backoff with random jitter
+                jitter = random.uniform(0, delay / 2)
+                sleep_time = min(delay + jitter, max_delay)
+                print(f"[{attempt}/{max_retries}] File locked, retrying in {sleep_time:.2f}s...")
+                time.sleep(sleep_time)
+                delay *= 2  # exponential increase
+            else:
+                raise  # unrelated OSError
+    raise TimeoutError(f"Failed to open {filename} after {max_retries} retries")
 
 parent_request = { 'limit': '100' }
-parent = get(sub['related']['parent_halo'], params=parent_request )
+parent_url = base_url + str(halo_id) + '/'
+parent = get(parent_url, params=parent_request)
+# print(parent['meta']['info'])
 parent_info = get(parent['meta']['info'])
-print(parent_info['InfoID'], parent_info)
+print(halo_id, parent_info)
 
 parent_request = {
-    'gas':'Coordinates,Masses,ParticleIDs,Density,ElectronAbundance,NeutralHydrogenAbundance,StarFormationRate,GFM_Metals',
+    'gas':'Coordinates,Masses,ParticleIDs,Density,ElectronAbundance,StarFormationRate,GFM_Metals',
     'stars':'Coordinates,Masses,ParticleIDs,GFM_StellarFormationTime'
 }
-parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+parent_cutout = get(parent_url + f'cutout.hdf5', parent_request)
 
-sibling_subs = [ 
-    get(res['url']) for res in parent['child_subhalos']['results']
-]
-# array entries
-sub_keys = set(sibling_subs[0].keys()) - { 'related', 'cutouts', 'trees', 'supplementary_data', 'vis', 'meta' }
+# sibling_subs = [ 
+#     get(res['url']) for res in parent['child_subhalos']['results']
+# ]
+# # array entries
+# sub_keys = set(sibling_subs[0].keys()) - { 'related', 'cutouts', 'trees', 'supplementary_data', 'vis', 'meta' }
 
-sibling_request = {
-    'gas':'ParticleIDs',
-    'stars':'ParticleIDs'
-}
-for sub in sibling_subs:
-    if sub['len_gas'] + sub['len_stars'] > 0:
-        get(sub['cutouts']['subhalo'], sibling_request, save_dir=snap_dir)
+# sibling_request = {
+#     'gas':'ParticleIDs',
+#     'stars':'ParticleIDs'
+# }
+# for sub in sibling_subs:
+#     if sub['len_gas'] + sub['len_stars'] > 0:
+#         get(sub['cutouts']['subhalo'], sibling_request, save_dir=snap_dir)
 
-with h5py.File(base_dir + snap_dir + f'cutout_{parent_info["InfoID"]}.hdf5', 'r') as f:
-    gas_ids = f['PartType0/ParticleIDs'][:]
-    star_ids = f['PartType4/ParticleIDs'][:]
+# with h5py.File(base_dir + snap_dir + f'cutout_{parent_info["InfoID"]}.hdf5', 'r') as f:
+#     gas_ids = f['PartType0/ParticleIDs'][:]
+#     star_ids = f['PartType4/ParticleIDs'][:]
 
-    gas_sub_ids = -np.ones_like(gas_ids, dtype=np.int64)
-    star_sub_ids = -np.ones_like(star_ids, dtype=np.int64)
+#     gas_sub_ids = -np.ones_like(gas_ids, dtype=np.int64)
+#     star_sub_ids = -np.ones_like(star_ids, dtype=np.int64)
 
-for sub in sibling_subs:
-    if sub['len_gas'] + sub['len_stars'] > 0:
-        with h5py.File(base_dir + snap_dir + f'cutout_{sub["id"]}.hdf5', 'r') as sub_f:
+# for sub in sibling_subs:
+#     if sub['len_gas'] + sub['len_stars'] > 0:
+#         with h5py.File(base_dir + snap_dir + f'cutout_{sub["id"]}.hdf5', 'r') as sub_f:
             
-            if sub['len_gas'] > 0:
-                sub_gas_ids = sub_f['PartType0/ParticleIDs'][:]
-                gas_sub_ids[np.isin(gas_ids, sub_gas_ids)] = sub["id"]
+#             if sub['len_gas'] > 0:
+#                 sub_gas_ids = sub_f['PartType0/ParticleIDs'][:]
+#                 gas_sub_ids[np.isin(gas_ids, sub_gas_ids)] = sub["id"]
             
-            if sub['len_stars'] > 0:
-                sub_star_ids = sub_f['PartType4/ParticleIDs'][:]
-                star_sub_ids[np.isin(star_ids, sub_star_ids)] = sub["id"]
+#             if sub['len_stars'] > 0:
+#                 sub_star_ids = sub_f['PartType4/ParticleIDs'][:]
+#                 star_sub_ids[np.isin(star_ids, sub_star_ids)] = sub["id"]
 
-with h5py.File(base_dir + snap_dir + f'cutout_{parent_info["InfoID"]}.hdf5', 'a') as f:
-        f['PartType0/SubhaloIDs'] = gas_sub_ids
-        f['PartType4/SubhaloIDs'] = star_sub_ids
+# with h5py.File(base_dir + snap_dir + f'cutout_{halo_id}.hdf5', 'a') as f:
+#     f['PartType0/SubhaloIDs'] = gas_sub_ids
+#     f['PartType4/SubhaloIDs'] = star_sub_ids
 
-with h5py.File("outputs/dm_proto.hdf5", "a") as f:
-    key = f'halo_{parent_info["InfoID"]}'
-    if key in f.keys():
-        del f[key]
-    g_halo = f.create_group(key)
-    g_halo['GroupCM'] = parent_info['GroupCM']
-    g_halo['GroupMassType'] = parent_info['GroupMassType']
-    g_halo['GroupSFR'] = parent_info['GroupSFR']
-    g_halo['Group_R_Crit500'] = parent_info['Group_R_Crit500']
-    g_subs = g_halo.create_group('subhalos')
-    for k in sub_keys:
-        g_subs[k] = [ s[k] for s in sibling_subs ]
+with backoff("outputs/tng_cluster_catalog.hdf5", "a") as f:
+    for k, v in parent_info.items():
+        f['table'][k][halo_index] = v
+
+#     g_subs = g_halo.create_group('subhalos')
+#     for k in sub_keys:
+#         g_subs[k] = [ s[k] for s in sibling_subs ]

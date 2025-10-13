@@ -1,0 +1,437 @@
+8790232 
+halo already exists
+5524229 
+halo already exists
+1580995 
+halo already exists
+15304908 
+halo already exists
+12045848 
+halo already exists
+12109950 
+halo already exists
+9720882 
+halo already exists
+2380799 
+halo already exists
+2637623 
+halo already exists
+692426 
+halo already exists
+3343359 
+halo already exists
+0 
+halo already exists
+1921024 
+halo already exists
+1263653 
+halo already exists
+4152102 
+halo already exists
+252455 
+halo already exists
+11069985 
+halo already exists
+4356618 
+halo already exists
+5160064 
+halo already exists
+18373384 
+halo already exists
+2069291 
+halo already exists
+3020669 
+halo already exists
+4656216 
+halo already exists
+3863298 
+halo already exists
+9229181 
+halo already exists
+252459 
+halo already exists
+13737851 
+halo already exists
+2507618 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+5348822 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+19184395 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+15386300 
+halo already exists
+17469184 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+11988378 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+3656685 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+4854863 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+2892630 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+3457081 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+1431487 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+2213486 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+13388143 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+7235868 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+2892634 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+6225918 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+17283896 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+17315356 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+7325028 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+4254235 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+11823213 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+9574391 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+12925051 
+halo already exists
+6664777 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+1263675 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+18602076 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+4960017 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+8714633 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+3238091 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+4959833 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+6748564 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+14346920 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+4461296 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+18788091 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+6412656 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+1263657 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+476247 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+6043040 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+11375033 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+1580997 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+10672584 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+10422957 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+6130380 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+3656694 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+3863281 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+15543148 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+3556542 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+9009954 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+Traceback (most recent call last):
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 789, in urlopen
+    response = self._make_request(
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 536, in _make_request
+    response = conn.getresponse()
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/urllib3/connection.py", line 464, in getresponse
+    httplib_response = super().getresponse()
+  File "/usr/lib/python3.10/http/client.py", line 1375, in getresponse
+    response.begin()
+  File "/usr/lib/python3.10/http/client.py", line 318, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.10/http/client.py", line 287, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 843, in urlopen
+    retries = retries.increment(
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/urllib3/util/retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/urllib3/util/util.py", line 38, in reraise
+    raise value.with_traceback(tb)
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 789, in urlopen
+    response = self._make_request(
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 536, in _make_request
+    response = conn.getresponse()
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/urllib3/connection.py", line 464, in getresponse
+    httplib_response = super().getresponse()
+  File "/usr/lib/python3.10/http/client.py", line 1375, in getresponse
+    response.begin()
+  File "/usr/lib/python3.10/http/client.py", line 318, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.10/http/client.py", line 287, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 49, in <module>
+    parent = get(sub['related']['parent_halo'], params=parent_request )
+  File "/home/xingyzt/Documents/halo/download.py", line 24, in get
+    r = requests.get(path, params=params, headers=headers)
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/sessions.py", line 724, in send
+    history = [resp for resp in gen]
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/sessions.py", line 724, in <listcomp>
+    history = [resp for resp in gen]
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/sessions.py", line 265, in resolve_redirects
+    resp = self.send(
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/adapters.py", line 682, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+12485362 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+16207140 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+5608717 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+8874397 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+15989517 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+18083789 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+2771226 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+3135769 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+7547389 
+Traceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 65, in <module>
+    parent_cutout = get(sub['cutouts']['parent_halo'], parent_request, save_dir=snap_dir)
+NameError: name 'snap_dir' is not defined
+^CTraceback (most recent call last):
+  File "/home/xingyzt/Documents/halo/download.py", line 49, in <module>
+    parent = get(sub['related']['parent_halo'], params=parent_request )
+  File "/home/xingyzt/Documents/halo/download.py", line 24, in get
+    r = requests.get(path, params=params, headers=headers)
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/sessions.py", line 724, in send
+    history = [resp for resp in gen]
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/sessions.py", line 724, in <listcomp>
+    history = [resp for resp in gen]
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/sessions.py", line 265, in resolve_redirects
+    resp = self.send(
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 789, in urlopen
+    response = self._make_request(
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 536, in _make_request
+    response = conn.getresponse()
+  File "/home/xingyzt/.local/lib/python3.10/site-packages/urllib3/connection.py", line 464, in getresponse
+    httplib_response = super().getresponse()
+  File "/usr/lib/python3.10/http/client.py", line 1375, in getresponse
+    response.begin()
+  File "/usr/lib/python3.10/http/client.py", line 318, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.10/http/client.py", line 279, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/usr/lib/python3.10/socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+  File "/usr/lib/python3.10/ssl.py", line 1303, in recv_into
+    return self.read(nbytes, buffer)
+  File "/usr/lib/python3.10/ssl.py", line 1159, in read
+    return self._sslobj.read(len, buffer)
+KeyboardInterrupt

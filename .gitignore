@@ -2,4 +2,5 @@ tng_cache
 .ipynb_checkpoints
 __pycache__
 .env
+*.webp
 *.mp4
