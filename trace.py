@@ -159,10 +159,10 @@ for weight in ('sfr', 'mstar'):
             # z_history.append(np.cumsum(lengths))
             # n_e_history.append(gas_n_e[intersects])
         
-        if not i % log_interval:
-            if i > 0:
-                print(i, (time.time() - t)/log_interval)
-            t = time.time()
+        # if not i % log_interval:
+        #     if i > 0:
+        #         print(i, (time.time() - t)/log_interval)
+        #     t = time.time()
 
     with h5py.File(path, "a") as f:
         out = f'trace_{weight}/halo_{halo_id}'
