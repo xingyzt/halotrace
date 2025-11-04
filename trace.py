@@ -17,7 +17,7 @@ rng = np.random.default_rng(seed=1)
 halo_index = int(sys.argv[1])
 print(halo_index)
 
-repeat = True
+repeat = False
 
 path = 'outputs/tng_cluster_catalog.hdf5'
 # file = 'outputs/dm_proto_sfr_weighted.hdf5'
@@ -27,7 +27,12 @@ kpc_per_cm = 3.2407792894443653e-22
 with h5py.File(path, "r") as f:
     halo_id = f['table/haloID'][halo_index]
 
-    if not repeat and f'trace/halo_{halo_id}' in f:
+    existed = dict()
+    for weight in ('sfr', 'mstar'):
+        subpath = f'trace_{weight}/halo_{halo_id}'
+        existed[weight] = (subpath in f) and ('index' in f[subpath]) and (f[subpath]['index'].size > 0)
+
+    if not repeat and all(existed.values()):
         print('halo already traced')
         sys.exit(0)
 
@@ -92,6 +97,9 @@ log_interval = 100
 
 for weight in ('sfr', 'mstar'):
     print(weight)
+    if (not repeat) and existed[weight]:
+        print('already exists, skipping')
+        continue
     for i in tqdm.trange(n_samples//2):
         
         if weight == 'sfr':
